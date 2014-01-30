@@ -15,7 +15,9 @@ Install
 =======
 
 git clone https://github.com/cttn/Stocks.git
+
 cd Stocks
+
 python setup.py install
 
 
