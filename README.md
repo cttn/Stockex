@@ -13,7 +13,7 @@ python setup.py install
 Credits
 =======
 
-Initially based on https://github.com/gurch101/StockScraper
+Initially based on (python2.7 script) https://github.com/gurch101/StockScraper
 
 
 

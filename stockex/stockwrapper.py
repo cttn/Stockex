@@ -1,4 +1,10 @@
-"""A wrapper for the Yahoo! Finance API."""
+"""A wrapper for the Yahoo! Finance API.
+
+ Ex Usage:
+    from stockex import stockwrapper as sw
+    data = sw.YahooData()
+    print(data.get_current('GOOG')) 
+"""
 
 import http.client, urllib
 import simplejson as json
@@ -124,3 +130,12 @@ class YahooData:
         return _response  #TODO: Validate response
 
 
+    def get_industry_index(self, iid):
+        """Retrieves all symbols of a given industry"""
+
+        yql = 'SELECT * FROM {0} WHERE id=\'{1}\'' \
+                .format(self.FINANCE_TABLES['industry'], iid)
+
+        _response = self.enquire(yql)
+
+        return _response  #TODO: Validate response
