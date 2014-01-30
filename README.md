@@ -1,7 +1,14 @@
-Stocks
+Stockex
 ======
 
 Python 3 wrapper for Yahoo! Finance API.
+
+
+Requirements
+============
+
+* Python 3
+* simplejson
 
 
 Install
