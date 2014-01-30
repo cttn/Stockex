@@ -67,8 +67,19 @@ class YahooData:
         yql = 'SELECT * FROM csv WHERE url=\'{0}\' AND columns=' \
              .format(self.HISTORICAL_URL + symbol) + _formatted_columns
 
-        _response = self.enquire(yql)
+        _response = self.enquire(yql) #TODO: Validate response
 
         #delete first row which only contains column names
         del _response['query']['results']['row'][0] 
         return _response['query']['results']['row']
+
+    def get_news_feed(self, symbol):
+        """Retrieves the RSS feed for the provided symbol"""
+
+        feed_url = self.RSS_URL + symbol
+        yql = 'SELECT title, link, description, pubDate FROM rss where url=\'{0}\'' \
+                .format(feed_url)
+        _response = self.enquire(yql)
+
+        return _response['query']['results']['item']
+

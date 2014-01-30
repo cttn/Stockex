@@ -1,7 +1,7 @@
 Stocks
 ======
 
-Python wrapper for Yahoo! Finance API.
+Python 3 wrapper for Yahoo! Finance API.
 
 
 Install
