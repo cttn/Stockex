@@ -44,8 +44,8 @@ class YahooData:
         _formatted_columns = ','.join(columns)
         _formatted_symbols = self._format_symbol_list(symbol_list)
 
-        yql = 'SELECT %s FROM %s WHERE symbol IN (%s)' \
-            %(_formatted_columns, self.FINANCE_TABLES['quotes'], _formatted_symbols)
+        yql = 'SELECT {0} FROM {1} WHERE symbol IN ({2})' \
+            .format(_formatted_columns, self.FINANCE_TABLES['quotes'], _formatted_symbols)
 
         _response = self.enquire(yql)
         
@@ -53,3 +53,22 @@ class YahooData:
             return self._validate_response(_response, 'quote')
         else:
             return _response
+
+    def get_historical(self, symbol, columns = None):
+        """Retrieves historical data for the provided stock 'symbol'.
+        Default columns are: date, open, close, high, low, volume and
+        adjusted close."""
+
+        if columns is None:
+            _formatted_columns = '\"Date,Open,High,Low,Close,Volume,AdjClose\"'
+        else:
+            _formatted_columns = ','.join(columns)
+
+        yql = 'SELECT * FROM csv WHERE url=\'{0}\' AND columns=' \
+             .format(self.HISTORICAL_URL + symbol) + _formatted_columns
+
+        _response = self.enquire(yql)
+
+        #delete first row which only contains column names
+        del _response['query']['results']['row'][0] 
+        return _response['query']['results']['row']
