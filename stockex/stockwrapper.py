@@ -50,6 +50,6 @@ class YahooData:
         _response = self.enquire(yql)
         
         if validate:
-            return self._validate_response(self, _response, 'quote')
+            return self._validate_response(_response, 'quote')
         else:
             return _response
