@@ -77,9 +77,27 @@ class YahooData:
         """Retrieves the RSS feed for the provided symbol"""
 
         feed_url = self.RSS_URL + symbol
-        yql = 'SELECT title, link, description, pubDate FROM rss where url=\'{0}\'' \
+        yql = 'SELECT title, link, description, pubDate FROM rss WHERE url=\'{0}\'' \
                 .format(feed_url)
         _response = self.enquire(yql)
 
         return _response['query']['results']['item']
+
+    def get_options_info(self, symbol, expiration = None, columns = None):
+        """Retireves options data for the provided symbol"""
+    
+        if columns is None:
+            columns = '*'
+
+        _formatted_columns = ','.join(columns)
+        yql = 'SELECT {0} FROM {1} WHERE symbol=\'{2}\''  \
+                .format(_formatted_columns, self.FINANCE_TABLES['options'], symbol)
+
+        if expiration is not None:
+            yql += " AND expiration =\'{0}\'" .format(expiration)
+
+        _response = self.enquire(yql)
+
+        return _response  #TODO: Validate response
+
 
