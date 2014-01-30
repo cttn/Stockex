@@ -100,4 +100,27 @@ class YahooData:
 
         return _response  #TODO: Validate response
 
+    def get_index(self, index, columns = None):
+        """Retrieves data for the stock 'index'."""
+
+        if columns is None:
+            _formatted_columns = '*'
+        else:
+            _formatted_columns = ','.join(columns)
+
+        yql = 'SELECT {0} FROM {1} WHERE symbol=\'@{2}\'' \
+                .format(_formatted_columns, self.FINANCE_TABLES['quoteslist'], index)
+
+        print(yql)
+        _response = self.enquire(yql)
+
+        return _response  #TODO: Validate response
+
+    def get_industry_ids(self):
+        """Retrieves all industry names and ids"""
+
+        yql = 'SELECT * FROM {0}' .format(self.FINANCE_TABLES['sectors'])
+        _response = self.enquire(yql)
+        return _response  #TODO: Validate response
+
 
