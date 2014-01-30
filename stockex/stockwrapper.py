@@ -4,7 +4,7 @@ import http.client, urllib
 import simplejson as json
 
 
-class YahooStock:
+class YahooData:
     
     PUBLIC_API_URL = 'http://query.yahooapis.com/v1/public/yql'
     DATATABLES_URL = 'store://datatables.org/alltableswithkeys'
@@ -26,3 +26,30 @@ class YahooStock:
                 )
         conn.request('GET', self.PUBLIC_API_URL + '?' + string_query)
         return json.loads(conn.getresponse().read())
+
+    def _format_symbol_list(self, symbol_list):
+        """Gives the proper format for a YQL to a symbol list"""
+        return ','.join(["\""+symbol+"\"" for symbol in symbol_list])
+
+    def _validate_response(self, response, tag):
+        pass
+
+    def get_current(self, symbol_list, columns = None, validate = None):
+        """Retrieves the latest data (with some delay depending on the
+        country/market) for the list of symbols given in symbol_list"""
+
+        if columns is None:
+            columns = '*'
+
+        _formatted_columns = ','.join(columns)
+        _formatted_symbols = self._format_symbol_list(symbol_list)
+
+        yql = 'SELECT %s FROM %s WHERE symbol IN (%s)' \
+            %(_formatted_columns, self.FINANCE_TABLES['quotes'], _formatted_symbols)
+
+        _response = self.enquire(yql)
+        
+        if validate:
+            return self._validate_response(self, _response, 'quote')
+        else:
+            return _response
