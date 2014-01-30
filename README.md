@@ -16,7 +16,7 @@ Install
 
 git clone https://github.com/cttn/Stockex.git
 
-cd Stocks
+cd Stockex
 
 python setup.py install
 
