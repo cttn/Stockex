@@ -1,7 +1,7 @@
 from distutils.core import setup
 
 setup(
-    name='Stocks',
+    name='Stockex',
     version='0.1dev',
     description='Python 3 wrapper for Yahoo! Finance API',
     author='Cttn',
