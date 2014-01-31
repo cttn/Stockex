@@ -47,12 +47,10 @@ class YahooData:
         return ','.join(["\""+symbol+"\"" for symbol in symbol_list])
 
     def _validate_response(self, response, tag):
-        is_valid_response = False
-        if 'query' in response and 'results' in response['query']:
-            if response['query']['results'] is not None:
-                if tag in response['query']['results']:
-                    is_valid_response = True
-
+        is_valid_response = 'query' in response and             \
+                            'results' in response['query'] and  \
+                            tag in response['query']['results']
+        
         if is_valid_response:
             quote_info = response['query']['results'][tag]
         elif 'error' in response:
