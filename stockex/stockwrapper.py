@@ -23,7 +23,7 @@ class YahooData:
                       'industry': 'yahoo.finance.industry'
                       }
 
-    def enquire(self,yql):
+    def enquire(self, yql):
         """Execute YQL query to Yahoo! API"""
 
         conn = http.client.HTTPConnection('query.yahooapis.com')
@@ -139,3 +139,4 @@ class YahooData:
         _response = self.enquire(yql)
 
         return _response  #TODO: Validate response
+
