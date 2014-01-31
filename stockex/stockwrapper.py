@@ -48,9 +48,9 @@ class YahooData:
 
     def _validate_response(self, response, tag):
         is_valid_response = False
-        print(response)
         if 'query' in response and 'results' in response['query']:
-            if tag in response['query']['results']:
+            if response['query']['results'] is not None:
+                if tag in response['query']['results']:
                     is_valid_response = True
 
         if is_valid_response:
