@@ -4,13 +4,13 @@ Python 3 wrapper for Yahoo! Finance API.
 
 
 
-# Requirements
+## Requirements
 
 * Python 3
 
 
 
-# Install
+## Install
 
 > git clone https://github.com/cttn/Stockex.git
 >
@@ -20,7 +20,7 @@ Python 3 wrapper for Yahoo! Finance API.
 
 
 
-# Example Usage
+## Example Usage
 
 ```
  from stockex import stockwrapper as sw
@@ -54,7 +54,7 @@ Python 3 wrapper for Yahoo! Finance API.
 
 
 
-# Credits
+## Credits
 
 Initially based on (python2.7 script) https://github.com/gurch101/StockScraper
 
