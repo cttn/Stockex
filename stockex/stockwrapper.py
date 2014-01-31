@@ -35,7 +35,11 @@ class YahooData:
     def enquire(self, yql):
         """Execute YQL query to Yahoo! API"""
 
-        conn = http.client.HTTPConnection('query.yahooapis.com')
+        try:
+            conn = http.client.HTTPConnection('query.yahooapis.com')
+        except http.client.HTTPException:
+            raise self.Error("Error al intentar conectar con " + "query.yahooapis.com")
+
         string_query = urllib.parse.urlencode(
                 {'q': yql, 'format': 'json', 'env': self.DATATABLES_URL}
                 )
@@ -47,10 +51,9 @@ class YahooData:
         return ','.join(["\""+symbol+"\"" for symbol in symbol_list])
 
     def _validate_response(self, response, tag):
-        if response:
-            is_valid_response = 'query' in response and         \
-                            'results' in response['query'] and  \
-                            tag in response['query']['results']
+        is_valid_response = response and 'query' in response and                \
+                response['query'] and 'results' in response['query'] and        \
+                response['query']['results'] and tag in response['query']['results']
         
         if is_valid_response:
             quote_info = response['query']['results'][tag]
