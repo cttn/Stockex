@@ -7,7 +7,8 @@
 """
 
 import http.client, urllib
-import simplejson as json
+#import simplejson as json
+import json
 
 
 class YahooData:
@@ -31,7 +32,7 @@ class YahooData:
                 {'q': yql, 'format': 'json', 'env': self.DATATABLES_URL}
                 )
         conn.request('GET', self.PUBLIC_API_URL + '?' + string_query)
-        return json.loads(conn.getresponse().read())
+        return json.loads(conn.getresponse().read().decode('utf-8'))
 
     def _format_symbol_list(self, symbol_list):
         """Gives the proper format for a YQL to a symbol list"""

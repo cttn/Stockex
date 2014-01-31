@@ -8,7 +8,6 @@ Requirements
 ============
 
 * Python 3
-* simplejson
 
 
 Install
