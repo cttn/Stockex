@@ -7,7 +7,6 @@
 """
 
 import http.client, urllib
-#import simplejson as json
 import json
 
 
@@ -24,6 +23,15 @@ class YahooData:
                       'industry': 'yahoo.finance.industry'
                       }
 
+    class Error(Exception):
+
+        def __init__(self, value):
+            self.value = value
+
+        def __str__(self):
+            return repr(self.value)
+
+
     def enquire(self, yql):
         """Execute YQL query to Yahoo! API"""
 
@@ -39,9 +47,22 @@ class YahooData:
         return ','.join(["\""+symbol+"\"" for symbol in symbol_list])
 
     def _validate_response(self, response, tag):
-        pass
+        is_valid_response = False
+        print(response)
+        if 'query' in response and 'results' in response['query']:
+            if tag in response['query']['results']:
+                    is_valid_response = True
 
-    def get_current(self, symbol_list, columns = None, validate = None):
+        if is_valid_response:
+            quote_info = response['query']['results'][tag]
+        elif 'error' in response:
+            raise self.Error("YQL failed with error: {0}" .format(response['error']['description']))
+        else:
+            raise self.Error("YQL response malformed")
+        
+        return quote_info
+
+    def get_current(self, symbol_list, columns = None):
         """Retrieves the latest data (with some delay depending on the
         country/market) for the list of symbols given in symbol_list"""
 
@@ -55,11 +76,7 @@ class YahooData:
             .format(_formatted_columns, self.FINANCE_TABLES['quotes'], _formatted_symbols)
 
         _response = self.enquire(yql)
-        
-        if validate:
-            return self._validate_response(_response, 'quote')
-        else:
-            return _response
+        return self._validate_response(_response, 'quote')
 
     def get_historical(self, symbol, columns = None):
         """Retrieves historical data for the provided stock 'symbol'.
@@ -74,11 +91,11 @@ class YahooData:
         yql = 'SELECT * FROM csv WHERE url=\'{0}\' AND columns=' \
              .format(self.HISTORICAL_URL + symbol) + _formatted_columns
 
-        _response = self.enquire(yql) #TODO: Validate response
+        _response = self.enquire(yql)
+        _formatted_response = self._validate_response(_response, 'row')
 
-        #delete first row which only contains column names
-        del _response['query']['results']['row'][0] 
-        return _response['query']['results']['row']
+        del _formatted_response[0] #delete first row which only contains column names
+        return _formatted_response
 
     def get_news_feed(self, symbol):
         """Retrieves the RSS feed for the provided symbol"""
@@ -87,8 +104,8 @@ class YahooData:
         yql = 'SELECT title, link, description, pubDate FROM rss WHERE url=\'{0}\'' \
                 .format(feed_url)
         _response = self.enquire(yql)
-
-        return _response['query']['results']['item']
+        _formatted_response = self._validate_response(_response, 'item')
+        return _formatted_response
 
     def get_options_info(self, symbol, expiration = None, columns = None):
         """Retireves options data for the provided symbol"""
@@ -104,8 +121,7 @@ class YahooData:
             yql += " AND expiration =\'{0}\'" .format(expiration)
 
         _response = self.enquire(yql)
-
-        return _response  #TODO: Validate response
+        return self._validate_response(_response, 'optionsChain')
 
     def get_index(self, index, columns = None):
         """Retrieves data for the stock 'index'."""
@@ -118,17 +134,15 @@ class YahooData:
         yql = 'SELECT {0} FROM {1} WHERE symbol=\'@{2}\'' \
                 .format(_formatted_columns, self.FINANCE_TABLES['quoteslist'], index)
 
-        print(yql)
         _response = self.enquire(yql)
-
-        return _response  #TODO: Validate response
+        return self._validate_response(_response, 'quote')
 
     def get_industry_ids(self):
         """Retrieves all industry names and ids"""
 
         yql = 'SELECT * FROM {0}' .format(self.FINANCE_TABLES['sectors'])
         _response = self.enquire(yql)
-        return _response  #TODO: Validate response
+        return self._validate_response(_response, 'sector')
 
 
     def get_industry_index(self, iid):
@@ -138,6 +152,5 @@ class YahooData:
                 .format(self.FINANCE_TABLES['industry'], iid)
 
         _response = self.enquire(yql)
-
-        return _response  #TODO: Validate response
+        return self._validate_response(_response, 'industry')
 
