@@ -47,7 +47,8 @@ class YahooData:
         return ','.join(["\""+symbol+"\"" for symbol in symbol_list])
 
     def _validate_response(self, response, tag):
-        is_valid_response = 'query' in response and             \
+        if response:
+            is_valid_response = 'query' in response and         \
                             'results' in response['query'] and  \
                             tag in response['query']['results']
         
