@@ -77,7 +77,6 @@ class YahooData:
         _formatted_columns = ','.join(columns)
         _formatted_symbols = self._format_symbol_list(symbol_list)
 
-        print(_formatted_symbols)
         yql = 'SELECT {0} FROM {1} WHERE symbol IN ({2})' \
             .format(_formatted_columns, self.FINANCE_TABLES['quotes'], _formatted_symbols)
 
