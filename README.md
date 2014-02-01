@@ -28,7 +28,7 @@ from stockex import stockwrapper as sw
 data = sw.YahooData()
 
 # Print Current data of a Stock
-print(data.get_current("GOOG"))
+print(data.get_current(['GOOG']))
 
 # Print historical data of a Stock
 print(data.get_historical("GOOG"))
