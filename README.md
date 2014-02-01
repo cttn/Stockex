@@ -33,6 +33,11 @@ Python 3 wrapper for Yahoo! Finance API.
  # Print historical data of a Stock
  print(data.get_historical("GOOG"))
 
+ # Trivial formatting
+ print("Google stock: Date and Price")
+ for item in data.get_historical("GOOG"):
+ 	 print(item['Date'] + '\t' + item['Close']
+
 
  # Other methods:
  
