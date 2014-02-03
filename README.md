@@ -12,12 +12,13 @@ Python 3 wrapper for Yahoo! Finance API.
 
 ## Install
 
-> git clone https://github.com/cttn/Stockex.git
->
-> cd Stockex
->
-> python setup.py install
+```
+git clone https://github.com/cttn/Stockex.git
 
+cd Stockex
+
+python setup.py install
+```
 
 
 ## Example Usage
