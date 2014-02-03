@@ -19,7 +19,6 @@ pip install stockex
 
 From Github:
 ```
-
 git clone https://github.com/cttn/Stockex.git
 
 cd Stockex
