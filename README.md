@@ -61,7 +61,7 @@ data.get_industry_index('914')
 
 ## Credits
 
-Based on the python2.7 script StockScraper: [Code](https://github.com/gurch101/StockScraper) and [Docs](http://www.gurchet-rai.net/dev/yahoo-finance-yql).
+Based on the Python2.7 (Public Domain) script StockScraper: [Code](https://github.com/gurch101/StockScraper) and [Docs](http://www.gurchet-rai.net/dev/yahoo-finance-yql).
 
 
 

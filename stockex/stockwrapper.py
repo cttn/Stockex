@@ -1,7 +1,7 @@
 """A wrapper for the Yahoo! Finance API.
 
  Credits:
-    This code is based on the python2.7 script StockScraper:
+    This code is based on the python2.7 (Public Domain) script StockScraper:
         [Code] https://github.com/gurch101/StockScraper
         [Docs] http://www.gurchet-rai.net/dev/yahoo-finance-yql
 

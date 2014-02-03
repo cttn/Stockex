@@ -7,6 +7,6 @@ setup(
     author='Cttn',
     author_email='cj.cttn@gmail.com',
     packages=['stockex',],
-    license='',
+    license='Public Domain',
     long_description=open('README.md').read(),
     )
