@@ -1,9 +1,14 @@
 """A wrapper for the Yahoo! Finance API.
 
+ Credits:
+    This code is based on the python2.7 script StockScraper:
+        [Code] https://github.com/gurch101/StockScraper
+        [Docs] http://www.gurchet-rai.net/dev/yahoo-finance-yql
+
  Ex Usage:
     from stockex import stockwrapper as sw
     data = sw.YahooData()
-    print(data.get_current('GOOG')) 
+    print(data.get_current(['GOOG'])) 
 """
 
 import http.client, urllib
@@ -72,7 +77,7 @@ class YahooData:
             columns = '*'
 
         if type(symbol_list) is not list:
-            raise self.Error("Input for get_current must be of type list.")
+            raise self.Error("Input for get_current must be of type list.\nExample: ['GOOG','C']")
 
         _formatted_columns = ','.join(columns)
         _formatted_symbols = self._format_symbol_list(symbol_list)
