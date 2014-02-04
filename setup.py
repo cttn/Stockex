@@ -13,7 +13,7 @@ with open('README.txt') as file:
 
 setup(
     name='Stockex',
-    version='0.1',
+    version='0.1.1',
     description='Python 3 wrapper for Yahoo! Finance API',
     author='Cttn',
     author_email='cj.cttn@gmail.com',
