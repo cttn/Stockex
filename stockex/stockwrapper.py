@@ -76,8 +76,10 @@ class YahooData:
         if columns is None:
             columns = '*'
 
-        if type(symbol_list) is not list:
-            raise self.Error("Input for get_current must be of type list.\nExample: ['GOOG','C']")
+        if type(symbol_list) is str:
+            symbol_list = [symbol_list,]
+        elif type(symbol_list) is not list:
+            raise self.Error("Input for get_current must be of type list or string.\nExample: ['GOOG','C']")
 
         _formatted_columns = ','.join(columns)
         _formatted_symbols = self._format_symbol_list(symbol_list)
