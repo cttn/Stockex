@@ -43,7 +43,7 @@ class YahooData:
         try:
             conn = http.client.HTTPConnection('query.yahooapis.com')
         except http.client.HTTPException:
-            raise self.Error("Error al intentar conectar con " +
+            raise self.Error("Unable to connect with " +
                              "query.yahooapis.com")
 
         string_query = urllib.parse.urlencode(
