@@ -65,6 +65,11 @@ data.get_industry_index('914')
 ```
 
 
+## Contributing
+
+Contributions of all sorts are welcomed.
+Feel free to fork, make pull requests, ask for features, etc.
+
 
 ## Credits
 
