@@ -15,6 +15,8 @@ import http.client
 import urllib
 import json
 
+import datetime
+from datetime import date, timedelta
 
 class YahooData(object):
 
@@ -104,10 +106,15 @@ class YahooData(object):
         columns = ','.join(columns) if columns else '*'
 
         yql = "SELECT {0} FROM {1} WHERE symbol='{2}' ".format(columns, self.FINANCE_TABLES['history'],symbol)
-        if startDate:
-            yql += "AND startDate = '{0}'".format(startDate)
-        if endDate:
-            yql += "AND endDate = '{0}'".format(endDate)
+       
+        today = date.today()
+        start = datetime.date(day=today.day-7,month=today.month-1,year=today.year)
+        end = datetime.date(day=today.day-1,month=today.month-1,year=today.year)
+
+        yql += "AND startDate = '{0}'".format(startDate if startDate else str(start))
+        
+        yql += "AND endDate = '{0}'".format(endDate if endDate else str(end))
+
         if limit:
             yql += "LIMIT {0}".format(limit)
 
