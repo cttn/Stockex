@@ -1,5 +1,7 @@
 # Stockex
 
+[![Build Status](https://travis-ci.org/josuebrunel/Stockex.svg?branch=master)](https://travis-ci.org/josuebrunel/Stockex)
+
 Python 3 wrapper for Yahoo! Finance API.
 
 
