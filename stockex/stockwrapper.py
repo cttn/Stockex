@@ -111,6 +111,7 @@ class YahooData(object):
         start = datetime.date(day=today.day-7,month=today.month-1,year=today.year)
         end = datetime.date(day=today.day-1,month=today.month-1,year=today.year)
 
+        # return data of last month if startDate and endData aren't provided
         yql += "AND startDate = '{0}'".format(startDate if startDate else str(start))
         
         yql += "AND endDate = '{0}'".format(endDate if endDate else str(end))

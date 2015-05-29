@@ -13,12 +13,12 @@ Python 3 wrapper for Yahoo! Finance API.
 ## Install
 
 From PYPI:
-```
+```shell
 pip install stockex
 ```
 
 From Github:
-```
+```shell
 git clone https://github.com/cttn/Stockex.git
 
 cd Stockex
@@ -29,7 +29,7 @@ python setup.py install
 
 ## Example Usage
 
-```
+```python
 from stockex import stockwrapper as sw
 
 data = sw.YahooData()
@@ -39,6 +39,8 @@ print(data.get_current(['GOOG']))
 
 # Print historical data of a Stock
 print(data.get_historical("GOOG"))
+
+print(data.get_historical('YHOO',['Open','Close','High','Low'],startDate='2014-09-11',endDate='2015-02-10',limit=5))
 
 # Trivial formatting
 print("Google stock: Date and Price")
