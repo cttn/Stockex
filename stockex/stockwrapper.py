@@ -108,8 +108,8 @@ class YahooData(object):
         yql = "SELECT {0} FROM {1} WHERE symbol='{2}' ".format(columns, self.FINANCE_TABLES['history'],symbol)
        
         today = date.today()
-        start = datetime.date(day=today.day-7,month=today.month-1,year=today.year)
-        end = datetime.date(day=today.day-1,month=today.month-1,year=today.year)
+        start = today - timedelta(days=today.weekday(), weeks=1)
+        end = start + timedelta(days=4)
 
         # return data of last month if startDate and endData aren't provided
         yql += "AND startDate = '{0}'".format(startDate if startDate else str(start))
