@@ -1,3 +1,0 @@
-In stockwrapper.py:
-
- * MOD get_current: If input is of type string, convert to list, don't raise error.
