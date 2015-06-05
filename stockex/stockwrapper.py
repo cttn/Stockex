@@ -15,8 +15,10 @@ import http.client
 import urllib
 import json
 
+import datetime
+from datetime import date, timedelta
 
-class YahooData:
+class YahooData(object):
 
     PUBLIC_API_URL = 'http://query.yahooapis.com/v1/public/yql'
     DATATABLES_URL = 'store://datatables.org/alltableswithkeys'
@@ -26,7 +28,8 @@ class YahooData:
                       'options': 'yahoo.finance.options',
                       'quoteslist': 'yahoo.finance.quoteslist',
                       'sectors': 'yahoo.finance.sectors',
-                      'industry': 'yahoo.finance.industry'
+                      'industry': 'yahoo.finance.industry',
+                      'history': 'yahoo.finance.historicaldata'
                       }
 
     class Error(Exception):
@@ -95,24 +98,30 @@ class YahooData:
         _response = self.enquire(yql)
         return self._validate_response(_response, 'quote')
 
-    def get_historical(self, symbol, columns=None):
+    def get_historical(self, symbol, columns=None, startDate=None, endDate=None, limit=None):
         """Retrieves historical data for the provided stock 'symbol'.
         Default columns are: date, open, close, high, low, volume and
         adjusted close."""
 
-        if columns is None:
-            _formatted_columns = '\"Date,Open,High,Low,Close,Volume,AdjClose\"'
-        else:
-            _formatted_columns = ','.join(columns)
+        columns = ','.join(columns) if columns else '*'
 
-        yql = 'SELECT * FROM csv WHERE url=\'{0}\' AND columns=' \
-            .format(self.HISTORICAL_URL + symbol) + _formatted_columns
+        yql = "SELECT {0} FROM {1} WHERE symbol='{2}' ".format(columns, self.FINANCE_TABLES['history'],symbol)
+       
+        today = date.today()
+        start = today - timedelta(days=today.weekday(), weeks=1)
+        end = start + timedelta(days=4)
+
+        # return data of last month if startDate and endData aren't provided
+        yql += "AND startDate = '{0}'".format(startDate if startDate else str(start))
+        
+        yql += "AND endDate = '{0}'".format(endDate if endDate else str(end))
+
+        if limit:
+            yql += "LIMIT {0}".format(limit)
 
         _response = self.enquire(yql)
-        _formatted_response = self._validate_response(_response, 'row')
+        _formatted_response = self._validate_response(_response, 'quote')
 
-        # delete first row which only contains column names
-        del _formatted_response[0]
         return _formatted_response
 
     def get_news_feed(self, symbol):
