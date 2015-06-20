@@ -37,8 +37,11 @@ data = sw.YahooData()
 # Print Current data of a Stock
 print(data.get_current(['GOOG']))
 
-# Print historical data of a Stock
+# Print historical data of a Stock, returns data of last week
 print(data.get_historical("GOOG"))
+
+# Print historical data of a Stock according to the startDate and endDate
+print(data.get_historical('YHOO',['Open','Close','High','Low'],startDate='2014-09-11',endDate='2015-02-10',limit=5))
 
 # Trivial formatting
 print("Google stock: Date and Price")

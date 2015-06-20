@@ -14,9 +14,8 @@
 import http.client
 import urllib
 import json
-
-import datetime
 from datetime import date, timedelta
+
 
 class YahooData(object):
 
@@ -98,22 +97,25 @@ class YahooData(object):
         _response = self.enquire(yql)
         return self._validate_response(_response, 'quote')
 
-    def get_historical(self, symbol, columns=None, startDate=None, endDate=None, limit=None):
+    def get_historical(self, symbol, columns=None, startDate=None,
+                       endDate=None, limit=None):
         """Retrieves historical data for the provided stock 'symbol'.
         Default columns are: date, open, close, high, low, volume and
         adjusted close."""
 
         columns = ','.join(columns) if columns else '*'
 
-        yql = "SELECT {0} FROM {1} WHERE symbol='{2}' ".format(columns, self.FINANCE_TABLES['history'],symbol)
-       
+        yql = "SELECT {0} FROM {1} WHERE symbol='{2}' ".format(
+                columns, self.FINANCE_TABLES['history'], symbol)
+
         today = date.today()
         start = today - timedelta(days=today.weekday(), weeks=1)
         end = start + timedelta(days=4)
 
         # return data of last month if startDate and endData aren't provided
-        yql += "AND startDate = '{0}'".format(startDate if startDate else str(start))
-        
+        yql += "AND startDate = '{0}'".format(
+                startDate if startDate else str(start))
+
         yql += "AND endDate = '{0}'".format(endDate if endDate else str(end))
 
         if limit:
