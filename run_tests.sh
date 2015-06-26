@@ -1,3 +1,15 @@
-# Script running tests
+if [ ! -z $1 ]; then
+    TestCase=".${1}"
+else
+    TestCase=''
+fi 
 
-python -m unittest tests.TestStockex
+if [ ! -z $2 ]; then
+    Test=".${2}"
+else
+    Test=''
+fi
+
+python -m unittest tests$TestCase$Test
+
+
