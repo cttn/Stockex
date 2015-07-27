@@ -1,6 +1,12 @@
 language: python
 python:
-  - "3.2"
-  - "3.3"
-  - "3.4"
-script: ./run_tests.sh
+    - "3.2"
+    - "3.3"
+    - "3.4"
+install:
+    - pip install coveralls
+script: 
+    - coverage run --source=stockex/ -m unittest tests
+after_success:
+    - coverage report
+    - coveralls

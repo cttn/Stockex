@@ -69,6 +69,8 @@ class YahooData(object):
         elif 'error' in response:
             raise self.Error("YQL failed with error: {0}"
                              .format(response['error']['description']))
+        elif not response['query']['results'] :
+            quote_info = response['query']
         else:
             raise self.Error("YQL response malformed")
 
