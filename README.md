@@ -1,8 +1,8 @@
 # Stockex
 
-[![Build Status](https://travis-ci.org/josuebrunel/Stockex.svg?branch=master)](https://travis-ci.org/josuebrunel/Stockex)
+<!-- [![Build Status](https://travis-ci.org/josuebrunel/Stockex.svg?branch=master)](https://travis-ci.org/josuebrunel/Stockex) -->
 [![Coverage Status](https://coveralls.io/repos/josuebrunel/Stockex/badge.svg?branch=master)](https://coveralls.io/r/josuebrunel/Stockex?branch=master)
-[![Code Health](https://landscape.io/github/josuebrunel/Stockex/master/landscape.svg?style=flat)](https://landscape.io/github/josuebrunel/Stockex/master)
+<!-- [![Code Health](https://landscape.io/github/josuebrunel/Stockex/master/landscape.svg?style=flat)](https://landscape.io/github/josuebrunel/Stockex/master) -->
 Python 3 wrapper for Yahoo! Finance API.
 
 
